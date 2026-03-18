@@ -6,6 +6,10 @@ For people who have little time brushing up their algo knowledge.
 
 Use it anywhere - rest time between sets in the gym, or commuting on the train.
 
+## Demo
+
+![LootCode Demo](demo.gif)
+
 ## Features
 
 - **88 built-in problems** spanning Easy, Medium, and Hard
