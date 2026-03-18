@@ -156,6 +156,45 @@ const Icons = {
   ),
 };
 
+// --- INLINE MARKDOWN RENDERER ---
+function renderInlineMarkdown(text: string): ReactNode[] {
+  const tokens: ReactNode[] = [];
+  const regex = /(\*\*(.+?)\*\*|`([^`]+)`)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let key = 0;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      tokens.push(text.slice(lastIndex, match.index));
+    }
+    if (match[2] !== undefined) {
+      tokens.push(<strong key={key++} style={{ fontWeight: 700 }}>{match[2]}</strong>);
+    } else if (match[3] !== undefined) {
+      tokens.push(
+        <code
+          key={key++}
+          style={{
+            background: "#1e293b",
+            color: "#f59e0b",
+            padding: "1px 6px",
+            borderRadius: 4,
+            fontSize: "0.82rem",
+            fontFamily: "'JetBrains Mono', monospace",
+          }}
+        >
+          {match[3]}
+        </code>
+      );
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    tokens.push(text.slice(lastIndex));
+  }
+  return tokens;
+}
+
 // --- DIFFICULTY BADGE ---
 function DiffBadge({ d }: { d: Problem["difficulty"] }) {
   const c = d === "Easy" ? "#22c55e" : d === "Medium" ? "#f59e0b" : "#ef4444";
@@ -289,25 +328,7 @@ function ProblemView({ problem, onReady }: { problem: Problem; onReady: () => vo
       >
         {problem.description.split("\n").map((line, i) => (
           <p key={i} style={{ margin: "6px 0" }}>
-            {line.split("`").map((seg, j) =>
-              j % 2 === 1 ? (
-                <code
-                  key={j}
-                  style={{
-                    background: "#1e293b",
-                    color: "#f59e0b",
-                    padding: "1px 6px",
-                    borderRadius: 4,
-                    fontSize: "0.82rem",
-                    fontFamily: "'JetBrains Mono', monospace",
-                  }}
-                >
-                  {seg}
-                </code>
-              ) : (
-                <span key={j}>{seg}</span>
-              )
-            )}
+            {renderInlineMarkdown(line)}
           </p>
         ))}
       </div>
@@ -342,7 +363,7 @@ function ProblemView({ problem, onReady }: { problem: Problem; onReady: () => vo
         <div style={{ color: "#64748b", fontSize: "0.72rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>Constraints</div>
         {problem.constraints.map((c, i) => (
           <div key={i} style={{ color: "#94a3b8", fontSize: "0.8rem", padding: "3px 0", fontFamily: "'JetBrains Mono', monospace" }}>
-            • {c}
+            • {renderInlineMarkdown(c)}
           </div>
         ))}
       </div>
@@ -440,7 +461,7 @@ function MCQPhase({ problem, onComplete }: { problem: Problem; onComplete: (time
         <div style={{ color: "#f59e0b", fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>
           {qLabels[qIdx]}
         </div>
-        <p style={{ color: "#f1f5f9", fontSize: "0.95rem", margin: 0, fontWeight: 600, lineHeight: 1.5, fontFamily: "'Outfit', sans-serif" }}>{q.question}</p>
+        <p style={{ color: "#f1f5f9", fontSize: "0.95rem", margin: 0, fontWeight: 600, lineHeight: 1.5, fontFamily: "'Outfit', sans-serif" }}>{renderInlineMarkdown(q.question)}</p>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
@@ -499,7 +520,7 @@ function MCQPhase({ problem, onComplete }: { problem: Problem; onComplete: (time
               >
                 {showResult && i === q.correct ? Icons.check : showResult && i === selected && !isCorrect ? Icons.x : String.fromCharCode(65 + i)}
               </span>
-              {opt}
+              <span>{renderInlineMarkdown(opt)}</span>
             </button>
           );
         })}
@@ -517,7 +538,7 @@ function MCQPhase({ problem, onComplete }: { problem: Problem; onComplete: (time
             <div style={{ color: "#64748b", fontSize: "0.7rem", fontWeight: 600, marginBottom: 2 }}>CORRECT ANSWER</div>
             <div style={{ color: "#22c55e", fontSize: "0.9rem", fontWeight: 700, fontFamily: "'JetBrains Mono', monospace" }}>{q.options[q.correct]}</div>
           </div>
-          <p style={{ color: "#cbd5e1", fontSize: "0.85rem", lineHeight: 1.6, margin: "0 0 16px", textAlign: "center" }}>{q.explanation}</p>
+          <p style={{ color: "#cbd5e1", fontSize: "0.85rem", lineHeight: 1.6, margin: "0 0 16px", textAlign: "center" }}>{renderInlineMarkdown(q.explanation)}</p>
           <button onClick={handleNext} style={{ ...btnPrimary, width: "100%" }}>
             {qIdx < 2 ? "Next Question" : "Start Code Puzzle"} {Icons.arrow}
           </button>
@@ -532,7 +553,7 @@ function MCQPhase({ problem, onComplete }: { problem: Problem; onComplete: (time
             </div>
             <h3 style={{ color: "#ef4444", margin: "0 0 4px", fontFamily: "'Outfit', sans-serif" }}>Not quite!</h3>
           </div>
-          <p style={{ color: "#cbd5e1", fontSize: "0.85rem", lineHeight: 1.6, margin: "0 0 16px", textAlign: "center" }}>{q.explanation}</p>
+          <p style={{ color: "#cbd5e1", fontSize: "0.85rem", lineHeight: 1.6, margin: "0 0 16px", textAlign: "center" }}>{renderInlineMarkdown(q.explanation)}</p>
           <button onClick={handleNext} style={{ ...btnPrimary, width: "100%" }}>
             {qIdx < 2 ? "Next Question" : "Start Code Puzzle"} {Icons.arrow}
           </button>
@@ -777,7 +798,7 @@ function CodePuzzle({ problem, quizTime, onComplete }: { problem: Problem; quizT
                     {Icons.down}
                   </button>
                 </div>
-                <pre style={{ margin: 0, flex: 1, whiteSpace: "pre", overflowX: "auto", wordBreak: "normal" }}>{block.code}</pre>
+                <pre style={{ margin: 0, flex: 1, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{block.code}</pre>
                 {isDistractor && result === false && (
                   <span style={{ fontSize: "0.65rem", color: "#f59e0b", fontWeight: 700, whiteSpace: "nowrap", fontFamily: "'DM Sans', sans-serif" }}>TRAP</span>
                 )}
@@ -820,7 +841,7 @@ function CodePuzzle({ problem, quizTime, onComplete }: { problem: Problem; quizT
               }}
             >
               <span style={{ color: "#334155" }}>{Icons.grip}</span>
-              <pre style={{ margin: 0, whiteSpace: "pre", overflowX: "auto", wordBreak: "normal" }}>{block.code}</pre>
+              <pre style={{ margin: 0, whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{block.code}</pre>
             </button>
           ))}
         </div>
