@@ -1,6 +1,10 @@
 # LootCode
 
-Interactive LeetCode practice app with MCQs and code puzzles. Built with React + TypeScript + Vite.
+Interactive LeetCode practice app with MCQs and code puzzles. Aanswers looted from LLM.
+
+For people who have little time brushing up their algo knowledge.
+
+Use it anywhere - rest time between sets in the gym, or commuting on the train.
 
 ## Features
 
@@ -14,35 +18,25 @@ Interactive LeetCode practice app with MCQs and code puzzles. Built with React +
 - **Persistent storage** — progress saved via localStorage
 - **Responsive** — mobile-first design that works on desktop too
 
-## Getting Started
-
-```bash
-npm install
-npm run dev
-```
-
 ## Generating Custom Problems
 
 LootCode includes a built-in prompt template for generating new problems with Claude (or any LLM).
 
 1. Click **Prompt** in the app header
 2. Copy the prompt to your clipboard
-3. Paste it into Claude and append the LeetCode problem numbers you want, e.g. `1, 42, 200`
-4. Claude returns a JSON array in the exact format the app expects
+3. Paste it into LLM and append the LeetCode problem numbers you want, e.g. `1, 42, 200`
+4. LLM returns a JSON array in the exact format the app expects
 5. Save the output as a `.json` file
 6. Click **+ Import** in the app and upload the file
 
 The generated JSON includes problem descriptions, 3 MCQs, and a code puzzle with distractors — ready to use.
 
-## Deploy
+## Build locally
 
-Push to GitHub and import into [Vercel](https://vercel.com). It auto-detects Vite — zero config needed.
-
-## Tech Stack
-
-- React 18, TypeScript, Vite
-- No external UI libraries — inline styles only
-- No backend — fully client-side
+```bash
+npm install
+npm run dev
+```
 
 ## License
 
