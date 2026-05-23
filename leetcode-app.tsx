@@ -266,6 +266,10 @@ export default function App() {
         @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-9px)} 40%{transform:translateX(9px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+        @keyframes floatUp { 0%{opacity:1;transform:translateY(0) scale(1)} 60%{opacity:1} 100%{opacity:0;transform:translateY(-44px) scale(1.25)} }
+        @keyframes quickFade { 0%{opacity:1} 100%{opacity:0} }
+        @keyframes hpFlash { 0%,100%{filter:brightness(1)} 50%{filter:brightness(2)} }
         textarea:focus, input:focus { outline: none; border-color: #f59e0b !important; }
         button:active { transform: scale(0.97); }
         ::-webkit-scrollbar { width: 4px; }
