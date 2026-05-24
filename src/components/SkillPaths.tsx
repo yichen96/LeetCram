@@ -44,9 +44,11 @@ interface SkillPathViewProps {
   completedIds: number[];
   onSelectProblem: (problem: Problem) => void;
   onBack: () => void;
+  mode: "classic" | "quest";
+  onModeChange: (m: "classic" | "quest") => void;
 }
 
-export function SkillPathView({ path, problems, completedIds, onSelectProblem, onBack }: SkillPathViewProps) {
+export function SkillPathView({ path, problems, completedIds, onSelectProblem, onBack, mode, onModeChange }: SkillPathViewProps) {
   const pathProblems = path.problemIds
     .map((id) => problems.find((p) => p.id === id))
     .filter(Boolean) as Problem[];
@@ -77,7 +79,16 @@ export function SkillPathView({ path, problems, completedIds, onSelectProblem, o
         <div style={{ height: 6, background: "#1e293b", borderRadius: 4, overflow: "hidden" }}>
           <div style={{ width: `${pct}%`, height: "100%", background: `linear-gradient(90deg, ${path.color}80, ${path.color})`, borderRadius: 4, transition: "width 0.8s ease" }} />
         </div>
-        <div style={{ color: "#64748b", fontSize: "0.7rem", marginTop: 6 }}>{completed} of {pathProblems.length} problems completed</div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8 }}>
+          <span style={{ color: "#64748b", fontSize: "0.7rem" }}>{completed} of {pathProblems.length} problems completed</span>
+          <div style={{ display: "flex", gap: 4 }}>
+            {(["classic", "quest"] as const).map((m) => (
+              <button key={m} onClick={() => onModeChange(m)} style={{ padding: "3px 8px", borderRadius: 6, border: `1px solid ${mode === m ? (m === "classic" ? "#f59e0b60" : "#a78bfa60") : "#1e293b"}`, background: mode === m ? (m === "classic" ? "#f59e0b18" : "#a78bfa18") : "transparent", color: mode === m ? (m === "classic" ? "#f59e0b" : "#a78bfa") : "#475569", fontSize: "0.65rem", fontWeight: 700, fontFamily: "'DM Sans', sans-serif", cursor: "pointer", textTransform: "capitalize" }}>
+                {m}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* RPG Node Path */}

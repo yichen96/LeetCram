@@ -164,6 +164,7 @@ export default function App() {
   const [progress, setProgress] = useState<UserProgress>(loadProgress());
   const [selectedPath, setSelectedPath] = useState<SkillPath | null>(null);
   const [questSourcePath, setQuestSourcePath] = useState<SkillPath | null>(null);
+  const [globalMode, setGlobalMode] = useState<"classic" | "quest">("classic");
 
   // Load problems from localStorage on mount
   useEffect(() => {
@@ -251,6 +252,7 @@ export default function App() {
   };
 
   const goHome = () => { setPage("home"); setSelectedProblem(null); setSelectedPath(null); };
+  const goBack = () => { setSelectedProblem(null); if (selectedPath) { setPage("skillpath"); } else { setPage("home"); } };
 
   const pathCompletedIds = selectedPath
     ? [...new Set([...progress.classicCompleted, ...progress.questCompleted])]
@@ -304,6 +306,8 @@ export default function App() {
             onOpenSkillPath={openSkillPath}
             onImport={() => setShowImport(true)}
             onReset={handleReset}
+            mode={globalMode}
+            onModeChange={setGlobalMode}
           />
         )}
 
@@ -312,8 +316,10 @@ export default function App() {
             path={selectedPath}
             problems={problems}
             completedIds={pathCompletedIds}
-            onSelectProblem={(p) => startQuest(p, selectedPath)}
+            onSelectProblem={(p) => globalMode === "classic" ? startClassic(p) : startQuest(p, selectedPath ?? undefined)}
             onBack={goHome}
+            mode={globalMode}
+            onModeChange={setGlobalMode}
           />
         )}
 
@@ -322,11 +328,10 @@ export default function App() {
             {classicPhase !== "read" && (
               <div style={{ marginBottom: 14 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                  <button onClick={goBack} style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer", padding: "4px 0", display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>{Icons.back}</button>
                   <span style={{ color: "#64748b", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem" }}>#{selectedProblem.id}</span>
-                  <span style={{ color: "#f1f5f9", fontWeight: 700, fontSize: "0.95rem", fontFamily: "'Outfit', sans-serif" }}>{selectedProblem.title}</span>
-                  <div style={{ marginLeft: "auto" }}>
-                    <span style={{ background: "#f59e0b20", color: "#f59e0b", fontSize: "0.65rem", fontWeight: 700, padding: "2px 8px", borderRadius: 999, border: "1px solid #f59e0b40" }}>Classic</span>
-                  </div>
+                  <span style={{ color: "#f1f5f9", fontWeight: 700, fontSize: "0.95rem", fontFamily: "'Outfit', sans-serif", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{selectedProblem.title}</span>
+                  <span style={{ background: "#f59e0b20", color: "#f59e0b", fontSize: "0.65rem", fontWeight: 700, padding: "2px 8px", borderRadius: 999, border: "1px solid #f59e0b40", flexShrink: 0 }}>Classic</span>
                 </div>
                 <div style={{ display: "flex", gap: 4 }}>
                   {(["Quiz", "Puzzle"] as const).map((label, i) => {

@@ -157,8 +157,9 @@ export function MCQPhase({ problem, onComplete }: { problem: Problem; onComplete
       )}
 
       {showResult && isCorrect && (
-        <div style={{ background: "#22c55e18", border: "1px solid #22c55e40", borderRadius: 12, padding: 14, marginBottom: 14, textAlign: "center" }}>
-          <div style={{ color: "#22c55e", fontWeight: 700, fontSize: "0.9rem", marginBottom: 8 }}>✓ Correct!</div>
+        <div style={{ background: "#22c55e18", border: "1px solid #22c55e40", borderRadius: 12, padding: 14, marginBottom: 14 }}>
+          <div style={{ color: "#22c55e", fontWeight: 700, fontSize: "0.9rem", marginBottom: 6, textAlign: "center" }}>✓ Correct!</div>
+          <p style={{ color: "#94a3b8", fontSize: "0.82rem", lineHeight: 1.6, margin: "0 0 10px", fontFamily: "'DM Sans', sans-serif" }}>{renderInlineMarkdown(q.explanation)}</p>
           <button onClick={handleNext} style={{ ...btnPrimary, width: "100%" }}>{qIdx < 2 ? "Next Question" : "Start Code Puzzle"} {Icons.arrow}</button>
         </div>
       )}

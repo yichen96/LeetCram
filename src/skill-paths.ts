@@ -7,7 +7,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "AH",
     color: "#f59e0b",
     description: "Master hash maps and array manipulation",
-    problemIds: [1, 49, 128, 136, 169, 238, 347, 560],
+    problemIds: [1, 136, 169, 128, 238, 347, 49, 560],
   },
   {
     id: "twoptr",
@@ -15,7 +15,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "2P",
     color: "#22c55e",
     description: "Solve with two moving indices",
-    problemIds: [11, 15, 75, 283, 763],
+    problemIds: [283, 75, 11, 763, 15],
   },
   {
     id: "sliding",
@@ -23,7 +23,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "SW",
     color: "#06b6d4",
     description: "Dynamic window techniques",
-    problemIds: [3, 76, 239, 438, 560],
+    problemIds: [3, 438, 560, 76, 239],
   },
   {
     id: "stack",
@@ -31,7 +31,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "SQ",
     color: "#a78bfa",
     description: "LIFO/FIFO data structures",
-    problemIds: [20, 32, 84, 155, 394, 739],
+    problemIds: [20, 155, 394, 739, 84, 32],
   },
   {
     id: "bsearch",
@@ -39,7 +39,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "BS",
     color: "#fb7185",
     description: "Divide and conquer search",
-    problemIds: [4, 33, 34, 35, 74, 240],
+    problemIds: [35, 34, 33, 74, 240, 4],
   },
   {
     id: "linked",
@@ -47,7 +47,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "LL",
     color: "#34d399",
     description: "Pointer manipulation and traversal",
-    problemIds: [2, 19, 21, 23, 24, 25, 141, 142, 148, 160, 206, 234],
+    problemIds: [206, 21, 141, 234, 142, 160, 2, 19, 24, 148, 23, 25],
   },
   {
     id: "trees",
@@ -55,7 +55,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "TR",
     color: "#4ade80",
     description: "Recursive tree algorithms",
-    problemIds: [108, 114, 124, 199, 226, 230, 236, 437, 543],
+    problemIds: [226, 543, 199, 437, 108, 230, 236, 114, 124],
   },
   {
     id: "graphs",
@@ -63,7 +63,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "GR",
     color: "#f97316",
     description: "Graph traversal and connectivity",
-    problemIds: [200, 207, 994],
+    problemIds: [200, 994, 207],
   },
   {
     id: "dp",
@@ -71,7 +71,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "DP",
     color: "#e879f9",
     description: "Optimal substructure and memoization",
-    problemIds: [45, 55, 62, 64, 70, 72, 139, 152, 198, 279, 300, 322, 416],
+    problemIds: [70, 198, 55, 45, 322, 279, 62, 64, 300, 152, 139, 416, 72],
   },
   {
     id: "backtrack",
@@ -79,7 +79,7 @@ export const SKILL_PATHS: SkillPath[] = [
     icon: "BT",
     color: "#facc15",
     description: "Explore all possibilities systematically",
-    problemIds: [22, 39, 46, 51, 78, 79, 131],
+    problemIds: [78, 46, 39, 131, 22, 79, 51],
   },
 ];
 

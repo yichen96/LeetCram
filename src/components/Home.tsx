@@ -15,13 +15,14 @@ interface HomeProps {
   onOpenSkillPath: (path: SkillPath) => void;
   onImport: () => void;
   onReset: () => void;
+  mode: "classic" | "quest";
+  onModeChange: (m: "classic" | "quest") => void;
 }
 
-export function Home({ problems, progress, onStartClassic, onStartQuest, onOpenSkillPath, onImport, onReset }: HomeProps) {
+export function Home({ problems, progress, onStartClassic, onStartQuest, onOpenSkillPath, onImport, onReset, mode, onModeChange }: HomeProps) {
   const [tab, setTab] = useState<HomeTab>("paths");
   const [diffFilter, setDiffFilter] = useState<DifficultyFilter>("All");
   const [numberInput, setNumberInput] = useState("");
-  const [mode, setMode] = useState<"classic" | "quest">("classic");
 
   const level = getLevel(progress.questXP);
   const xpForNext = getXPForNextLevel(level);
@@ -73,7 +74,7 @@ export function Home({ problems, progress, onStartClassic, onStartQuest, onOpenS
       {/* Mode Selector */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 20 }}>
         <button
-          onClick={() => setMode("classic")}
+          onClick={() => onModeChange("classic")}
           style={{ background: mode === "classic" ? "#f59e0b18" : "#0c1222", border: `1.5px solid ${mode === "classic" ? "#f59e0b60" : "#1e293b"}`, borderRadius: 14, padding: "16px 12px", cursor: "pointer", textAlign: "center", transition: "all 0.2s" }}
         >
           <div style={{ width: 32, height: 32, borderRadius: 8, background: mode === "classic" ? "#f59e0b20" : "#1e293b", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: 6, color: mode === "classic" ? "#f59e0b" : "#64748b" }}>{Icons.map}</div>
@@ -84,7 +85,7 @@ export function Home({ problems, progress, onStartClassic, onStartQuest, onOpenS
           )}
         </button>
         <button
-          onClick={() => setMode("quest")}
+          onClick={() => onModeChange("quest")}
           style={{ background: mode === "quest" ? "#a78bfa18" : "#0c1222", border: `1.5px solid ${mode === "quest" ? "#a78bfa60" : "#1e293b"}`, borderRadius: 14, padding: "16px 12px", cursor: "pointer", textAlign: "center", transition: "all 0.2s" }}
         >
           <div style={{ width: 32, height: 32, borderRadius: 8, background: mode === "quest" ? "#a78bfa20" : "#1e293b", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: 6, color: mode === "quest" ? "#a78bfa" : "#64748b" }}>{Icons.zap}</div>

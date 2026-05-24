@@ -3,7 +3,7 @@ import type { Problem, CodeBlock } from "../types";
 import { DiffBadge, Icons, btnPrimary, btnSmall } from "./ui";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
-const MAX_PLAYER_HP = 90;
+const MAX_PLAYER_HP = 150;
 const HP_PER_LINE = 20;
 const WRONG_PENALTY = 15;
 
@@ -491,7 +491,7 @@ export function QuestMode({ problem, onComplete, onBack, currentXP: _currentXP, 
       {stepIdx > 0 && (
         <div style={{ background: "#0c1222", border: "1px solid #1e293b", borderRadius: 10, padding: "5px 12px", marginBottom: 8, maxHeight: 68, overflowY: "auto" }}>
           {correctLines.slice(Math.max(0, stepIdx - 4), stepIdx).map((line, i) => (
-            <div key={i} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.64rem", color: "#334155", lineHeight: 1.6 }}>{line}</div>
+            <div key={i} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem", color: "#94a3b8", lineHeight: 1.6 }}>{line}</div>
           ))}
           {!(isLastStep && showFeedback) && (
             <div style={{ borderTop: "1px solid #f59e0b20", marginTop: 3, paddingTop: 2, color: "#f59e0b50", fontSize: "0.58rem" }}>↓ next?</div>
