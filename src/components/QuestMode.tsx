@@ -335,7 +335,7 @@ export function QuestMode({ problem, onComplete, onBack, currentXP: _currentXP, 
             <div style={{ color: "#64748b", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase" }}>XP Earned</div>
           </div>
           <div style={{ background: "#22c55e12", border: "1px solid #22c55e30", borderRadius: 12, padding: "12px 18px", minWidth: 80 }}>
-            <div style={{ color: "#22c55e", fontSize: "1.3rem", fontWeight: 800, fontFamily: "'Outfit', sans-serif" }}>{stepIdx}/{steps.length}</div>
+            <div style={{ color: "#22c55e", fontSize: "1.3rem", fontWeight: 800, fontFamily: "'Outfit', sans-serif" }}>{won ? steps.length : stepIdx}/{steps.length}</div>
             <div style={{ color: "#64748b", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase" }}>Lines Hit</div>
           </div>
           <div style={{ background: "#06b6d412", border: "1px solid #06b6d430", borderRadius: 12, padding: "12px 18px", minWidth: 80 }}>
