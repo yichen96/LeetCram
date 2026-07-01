@@ -81,6 +81,38 @@ export const SKILL_PATHS: SkillPath[] = [
     description: "Explore all possibilities systematically",
     problemIds: [78, 46, 39, 131, 22, 79, 51],
   },
+  {
+    id: "sql-select",
+    name: "SQL: Select & Filter",
+    icon: "SL",
+    color: "#38bdf8",
+    description: "PostgreSQL WHERE, DISTINCT, and NULL handling",
+    problemIds: [595, 1757, 584, 1148],
+  },
+  {
+    id: "sql-joins",
+    name: "SQL: Joins & Aggregation",
+    icon: "JN",
+    color: "#818cf8",
+    description: "PostgreSQL JOINs, GROUP BY, and HAVING",
+    problemIds: [175, 183, 197, 182],
+  },
+  {
+    id: "pandas-basics",
+    name: "Pandas: Basics",
+    icon: "PD",
+    color: "#2dd4bf",
+    description: "Create, inspect, and select DataFrame data",
+    problemIds: [2877, 2878, 2879, 2880],
+  },
+  {
+    id: "pandas-clean",
+    name: "Pandas: Clean & Reshape",
+    icon: "PC",
+    color: "#f472b6",
+    description: "Drop duplicates, handle missing data, rename columns",
+    problemIds: [2882, 2883, 2885, 2887],
+  },
 ];
 
 const XP_THRESHOLDS = [0, 100, 250, 500, 1000, 2000, 3500, 5000, 7500, 10000];
