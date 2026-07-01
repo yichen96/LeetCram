@@ -166,14 +166,20 @@ export default function App() {
   const [questSourcePath, setQuestSourcePath] = useState<SkillPath | null>(null);
   const [globalMode, setGlobalMode] = useState<"classic" | "quest">("classic");
 
-  // Load problems from localStorage on mount
+  // Load problems on mount: merge newly-shipped bundle with any saved/imported
+  // problems by id. The bundle wins on conflicts so edits and new problems we
+  // ship always reach existing sessions; localStorage only contributes extras
+  // (e.g. user-imported problems whose ids aren't in the bundle).
   useEffect(() => {
     try {
+      const byId = new Map<number, Problem>();
       const saved = localStorage.getItem("leetdrill-problems");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) setProblems(parsed);
+        if (Array.isArray(parsed)) for (const p of parsed as Problem[]) byId.set(p.id, p);
       }
+      for (const p of SAMPLE_PROBLEMS as Problem[]) byId.set(p.id, p);
+      setProblems([...byId.values()].sort((a, b) => a.id - b.id));
     } catch { /* silent */ }
     setLoaded(true);
   }, []);
